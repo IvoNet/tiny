@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ivo2U.nl</title>
+    <style type="text/css">
+        a:link {
+            color: #4776cc;
+        }
+
+        a:visited {
+            color: #4776cc;
+        }
+
+        a:hover {
+            color: #4776cc;
+        }
+
+        a:active {
+            color: #4776cc;
+        }
+
+        form, .box {
+            background: -webkit-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+            background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+            background: linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+            margin: auto;
+            position: relative;
+            width: 550px;
+            height: 65px;
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 24px;
+            font-weight: bold;
+            color: #09C;
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 10px;
+            /*border: 1px solid #999;*/
+            border: inset 1px solid #333;
+            -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .error {
+            color: #cc1f24;
+            height: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .url {
+            width: 375px;
+            display: block;
+            border: 1px solid #999;
+            height: 25px;
+            -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button {
+            width: 100px;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            background: #09C;
+            color: #fff;
+            font-family: Tahoma, Geneva, sans-serif;
+            height: 30px;
+            border-radius: 15px;
+            border: 1px solid #999;
+        }
+
+        .button:hover {
+            background: #fff;
+            color: #09C;
+        }
+
+        .black_overlay {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=80);
+        }
+
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            padding: 16px;
+            border: 16px solid #4776cc;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+        }
+
+        .copied::after {
+            position: relative;
+            top: 5%;
+            right: 110%;
+            display: block;
+            content: "copied";
+            font-size: 1em;
+            padding: 2px 3px;
+            color: #fff;
+            background-color: #22a;
+            border-radius: 3px;
+            opacity: 0;
+            will-change: opacity, transform;
+            animation: showcopied 1.5s ease;
+        }
+
+        @keyframes showcopied {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            70% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var re = /([Hh][Tt][Tt][Pp][Ss]?):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+            var x = document.forms["myForm"]["url"].value;
+            var err = document.getElementById('errors');
+            if (x == null || x == "") {
+                err.innerHTML = "The url is mandatory";
+                err.classList.remove("hidden");
+                document.forms["myForm"]["url"].focus();
+                return false;
+            }
+
+            if (!re.test(x)) {
+                err.innerHTML = "Input must be a valid url including the protocol.";
+                err.classList.remove("hidden");
+                document.forms["myForm"]["url"].focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="myForm" action="/"
+      onsubmit="return validateForm()" method="post">
+    <label><span>Url</span>
+        <input class="url" type="text" name="url"/>
+    </label>
+    <input class="button" type="submit" value="Submit"/>
+    <a href="javascript:void(0)"
+       onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Disclaimer</a>
+    <script style="javascript">
+        document.forms["myForm"]["url"].focus();
+    </script>
+</form>
+<div class="box hidden error" id="errors">
+</div>
+<div class="box">
+    <label for="website">Result:</label><input class="url" type="text" id="website" value="http://ivo2u.nl"/>
+    <button class="button" data-copytarget="#website">copy</button>
+    <a href="http://ivo2u.nl" target="_blank">http://ivo2u.nl</a>
+</div>
+<div id="light" class="white_content">
+    <p>Disclaimer:</p>
+    <p>The information contained in this website is for general information purposes only. We make no
+        representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability,
+        suitability or availability with respect to the website or the information, products, services, or related
+        graphics contained on the website for any purpose. Any reliance you place on such information is therefore
+        strictly at your own risk.</p>
+
+    <p>In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss
+        or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in
+        connection with, the use of this website.</p>
+
+    <p>Through this website you are able to link to other websites which are not under the control of ivo2u.nl.
+        We have no control over the nature, content and availability of those sites. The inclusion of any links does not
+        in any way imply a recommendation or endorse the views expressed within them.</p>
+
+    <p>We reserve the right, at our discretion, to change, modify, add, or remove anything of the site and or its data
+        at any time.</p>
+
+    <p>We reserve the right to change these terms and conditions at any time, and you agree to abide by the most recent
+        version of this Terms of Use Agreement each time you view and use the Website. You are accordingly advised to
+        consult the Terms of Use Agreement each time you view and use the Website. Do not use the Website if you do not
+        agree to all of the following terms and conditions.</p>
+
+    <a href="javascript:void(0)"
+       onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+</div>
+<div id="fade" class="black_overlay"></div>
+<script type="text/javascript">
+    (function () {
+        'use strict';
+        // click events
+        document.body.addEventListener('click', copy, true);
+        // event handler
+        function copy(e) {
+            // find target element
+            var t = e.target;
+            var c = t.dataset.copytarget;
+            var inp = (c ? document.querySelector(c) : null);
+
+            // is element selectable?
+            if (inp && inp.select) {
+                inp.select();
+                try {
+                    document.execCommand('copy');
+                    inp.blur();
+
+                    // copied animation
+                    t.classList.add('copied');
+                    setTimeout(function () {
+                        t.classList.remove('copied');
+                    }, 1500);
+                }
+                catch (err) {
+                    alert('please press Ctrl/Cmd+C to copy');
+                }
+            }
+        }
+    })();
+</script>
+</body>
+</html>

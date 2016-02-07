@@ -1,0 +1,8 @@
+DROP DATABASE IF EXISTS testdb;
+DROP USER IF EXISTS testdbuser;
+
+CREATE DATABASE testdb;
+CREATE USER testdbuser;
+ALTER USER testdbuser WITH PASSWORD 's3cr3t';
+GRANT ALL PRIVILEGES ON DATABASE testdb TO testdbuser;
+
