@@ -37,7 +37,8 @@ import java.util.Calendar;
 @NamedQueries({
         @NamedQuery(name = "Tiny.findById", query = "SELECT t FROM Tiny t WHERE t.id = :id"),
         @NamedQuery(name = "Tiny.findByUrl", query = "SELECT t FROM Tiny t WHERE t.url = :url"),
-        @NamedQuery(name = "Tiny.updateCounter", query = "UPDATE Tiny t SET t.counter = (t.counter + 1) WHERE t.id = :id")
+        @NamedQuery(name = "Tiny.updateCounter", query = "UPDATE Tiny t SET t.counter = (t.counter + 1) WHERE t.id = :id"),
+        @NamedQuery(name = "Tiny.popular", query = "SELECT t FROM Tiny t ORDER BY t.counter DESC")
 })
 @Table(name = "Tiny")
 public class Tiny {

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app=Tiny>
 <head>
 <title>Ivo2U.nl</title>
-<style type=text/css>a:link{color:#4776cc}a:visited{color:#4776cc}a:hover{color:#4776cc}a:active{color:#4776cc}form,.box{background:-webkit-linear-gradient(bottom,#CCCCCC,#EEEEEE 175px);background:-moz-linear-gradient(bottom,#CCCCCC,#EEEEEE 175px);background:linear-gradient(bottom,#CCCCCC,#EEEEEE 175px);margin:auto;position:relative;width:550px;height:65px;font-family:Tahoma,Geneva,sans-serif;font-size:14px;font-style:italic;line-height:24px;font-weight:bold;color:#09C;text-decoration:none;border-radius:10px;padding:10px;border:1px solid #999;border:inset 1px solid #333;-webkit-box-shadow:0 0 8px rgba(0,0,0,0.3);-moz-box-shadow:0 0 8px rgba(0,0,0,0.3);box-shadow:0 0 8px rgba(0,0,0,0.3)}.error{color:#cc1f24;height:20px}.hidden{display:none}.url{width:375px;display:block;border:1px solid #999;height:25px;-webkit-box-shadow:0 0 8px rgba(0,0,0,0.3);-moz-box-shadow:0 0 8px rgba(0,0,0,0.3);box-shadow:0 0 8px rgba(0,0,0,0.3)}.button{width:100px;position:absolute;right:20px;bottom:20px;background:#09C;color:#fff;font-family:Tahoma,Geneva,sans-serif;height:30px;border-radius:15px;border:1 p solid #999}.button:hover{background:#fff;color:#09C}.black_overlay{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background-color:black;z-index:1001;-moz-opacity:.8;opacity:.80;filter:alpha(opacity=80)}.white_content{display:none;position:absolute;top:25%;left:25%;width:50%;height:50%;padding:16px;border:16px solid #4776cc;background-color:white;z-index:1002;overflow:auto}.copied::after{position:relative;top:5%;right:110%;display:block;content:"copied";font-size:1em;padding:2px 3px;color:#fff;background-color:#22a;border-radius:3px;opacity:0;will-change:opacity,transform;animation:showcopied 1.5s ease}@keyframes showcopied{0%{opacity:0;transform:translateX(100%)}70%{opacity:1;transform:translateX(0)}100%{opacity:0}}</style>
+<style type=text/css>a:link{color:#4776cc}a:visited{color:#4776cc}a:hover{color:#4776cc}a:active{color:#4776cc}form,.box{background:-webkit-linear-gradient(bottom,#CCCCCC,#EEEEEE 175px);background:-moz-linear-gradient(bottom,#CCCCCC,#EEEEEE 175px);background:linear-gradient(bottom,#CCCCCC,#EEEEEE 175px);margin:auto;position:relative;width:550px;height:65px;font-family:Tahoma,Geneva,sans-serif;font-size:14px;font-style:italic;line-height:24px;font-weight:bold;color:#09C;text-decoration:none;border-radius:10px;padding:10px;border:inset 1px solid #333;-webkit-box-shadow:0 0 8px rgba(0,0,0,0.3);-moz-box-shadow:0 0 8px rgba(0,0,0,0.3);box-shadow:0 0 8px rgba(0,0,0,0.3)}.error{color:#cc1f24;height:20px}.links{height:160px}.hidden{display:none}.url{width:375px;display:block;border:1px solid #999;height:25px;-webkit-box-shadow:0 0 8px rgba(0,0,0,0.3);-moz-box-shadow:0 0 8px rgba(0,0,0,0.3);box-shadow:0 0 8px rgba(0,0,0,0.3)}.button{width:100px;position:absolute;right:20px;bottom:20px;background:#09C;color:#fff;font-family:Tahoma,Geneva,sans-serif;height:30px;border-radius:15px;border:1px solid #999}.button:hover{background:#fff;color:#09C}.black_overlay{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background-color:black;z-index:1001;-moz-opacity:.8;opacity:.80;filter:alpha(opacity=80)}.white_content{display:none;position:absolute;top:25%;left:25%;width:50%;height:50%;padding:16px;border:16px solid #4776cc;background-color:white;z-index:1002;overflow:auto}.copied::after{position:relative;top:5%;right:110%;display:block;content:"copied";font-size:1em;padding:2px 3px;color:#fff;background-color:#22a;border-radius:3px;opacity:0;will-change:opacity,transform;animation:showcopied 1.5s ease}@keyframes showcopied{0%{opacity:0;transform:translateX(100%)}70%{opacity:1;transform:translateX(0)}100%{opacity:0}}table{width:100%;border-collapse:collapse}</style>
 <script>function validateForm(){var b=/([Hh][Tt][Tt][Pp][Ss]?):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;var a=document.forms.myForm["url"].value;var c=document.getElementById("errors");if(a==null||a==""){c.innerHTML="The url is mandatory";c.classList.remove("hidden");document.forms.myForm["url"].focus();return false}if(!b.test(a)){c.innerHTML="Input must be a valid url including the protocol.";c.classList.remove("hidden");document.forms.myForm["url"].focus();return false}}</script>
 </head>
 <body>
@@ -20,6 +20,24 @@
 <label for=website>Result:</label><input class=url type=text id=website value="http://ivo2u.nl"/>
 <button class=button data-copytarget=#website>copy</button>
 <a href=http://ivo2u.nl target=_blank>http://ivo2u.nl</a>
+</div>
+<div class="box links">
+<div ng-controller="Popular as vm">
+<table>
+<thead>
+<tr>
+<td>Most popular links...</td>
+<td>Counter</td>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="token in vm.data.tokens">
+<td><a href={{token.tinyUrl}}>{{token.destinationUrl}}</a></td>
+<td>{{token.counter}}</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id=light class=white_content>
 <p>Disclaimer:</p>
@@ -43,6 +61,7 @@ agree to all of the following terms and conditions.</p>
 <a href=javascript:void(0) onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
 </div>
 <div id=fade class=black_overlay></div>
-<script type=text/javascript>(function(){document.body.addEventListener("click",a,true);function a(g){var b=g.target;var h=b.dataset.copytarget;var f=(h?document.querySelector(h):null);if(f&&f.select){f.select();try{document.execCommand("copy");f.blur();b.classList.add("copied");setTimeout(function(){b.classList.remove("copied")},1500)}catch(d){alert("please press Ctrl/Cmd+C to copy")}}}})();</script>
+<script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js></script>
+<script type=text/javascript>(function(){angular.module("Tiny",[]).controller("Popular",a);a.$inject=["$http"];function a(c){var b=this;c({url:"http://ivo2u.nl/popular",method:"GET",headers:{Accept:"application/json"}}).success(function(f,d,g,e){b.data=f}).error(function(f,d,g,e){b.data=d})}})();(function(){document.body.addEventListener("click",a,true);function a(g){var b=g.target;var h=b.dataset.copytarget;var f=(h?document.querySelector(h):null);if(f&&f.select){f.select();try{document.execCommand("copy");f.blur();b.classList.add("copied");setTimeout(function(){b.classList.remove("copied")},1500)}catch(d){alert("please press Ctrl/Cmd+C to copy")}}}})();</script>
 </body>
 </html>

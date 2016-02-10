@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="Tiny">
 <head>
     <title>Ivo2U.nl</title>
     <style type="text/css">
@@ -46,6 +46,10 @@
         .error {
             color: #cc1f24;
             height: 20px;
+        }
+
+        .links {
+            height: 160px;
         }
 
         .hidden {
@@ -137,6 +141,11 @@
                 opacity: 0;
             }
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
     </style>
     <script>
         function validateForm() {
@@ -179,6 +188,24 @@
     <button class="button" data-copytarget="#website">copy</button>
     <a href="http://ivo2u.nl" target="_blank">http://ivo2u.nl</a>
 </div>
+<div class="box links">
+    <div ng-controller="Popular as vm">
+        <table>
+            <thead>
+            <tr>
+                <td>Most popular links...</td>
+                <td>Counter</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="token in vm.data.tokens">
+                <td><a href="{{token.tinyUrl}}">{{token.destinationUrl}}</a></td>
+                <td>{{token.counter}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <div id="light" class="white_content">
     <p>Disclaimer:</p>
     <p>The information contained in this website is for general information purposes only. We make no
@@ -207,7 +234,32 @@
        onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
 </div>
 <div id="fade" class="black_overlay"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
 <script type="text/javascript">
+
+    (function () {
+        angular.module('Tiny', []).controller("Popular", Popular);
+
+        Popular.$inject = [
+            '$http'
+        ];
+
+        function Popular($http) {
+            var vm = this;
+            $http({
+                url: 'http://ivo2u.nl/popular',
+                method: "GET",
+                headers: {'Accept': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                vm.data = data;
+            }).error(function (data, status, headers, config) {
+                vm.data = status;
+            });
+
+        }
+    })();
+
     (function () {
         'use strict';
         // click events
@@ -239,5 +291,6 @@
         }
     })();
 </script>
+
 </body>
 </html>

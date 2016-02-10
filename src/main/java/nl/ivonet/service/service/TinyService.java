@@ -20,6 +20,7 @@ package nl.ivonet.service.service;
 import nl.ivonet.service.boundary.TinyUrl;
 import nl.ivonet.service.model.Tiny;
 import nl.ivonet.service.model.Token;
+import nl.ivonet.service.model.Tokens;
 import org.apache.commons.validator.UrlValidator;
 
 import javax.ejb.Stateless;
@@ -152,6 +153,20 @@ public class TinyService {
         } catch (NoResultException e) {
             return new Token();
         }
+
+    }
+
+    @GET
+    @Path("/popular")
+    @Produces(APPLICATION_JSON)
+    public Response popular() {
+        final List<Tiny> resultList = this.em.createNamedQuery("Tiny.popular", Tiny.class)
+                                             .setMaxResults(5)
+                                             .getResultList();
+        final Tokens tokens = new Tokens();
+        resultList.stream().map(p -> new Token(makeUrl(p.getId()), p)).forEach(tokens::add);
+        return Response.ok(tokens)
+                       .build();
 
     }
 
