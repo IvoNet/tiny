@@ -2,83 +2,93 @@
 <html data-ng-app="Tiny">
 <head>
     <title>Ivo2U.nl</title>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ivo2U links">
+    <meta name="author" content="Ivo Woltring">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <style type="text/css">
-        a:link {
-            color: #4776cc;
+        body {
+            padding-top: 70px;
+            padding-bottom: 30px;
         }
 
-        a:visited {
-            color: #4776cc;
-        }
-
-        a:hover {
-            color: #4776cc;
-        }
-
-        a:active {
-            color: #4776cc;
-        }
-
-        form, .box {
-            background: -webkit-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
-            background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
-            background: linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
-            margin: auto;
-            position: relative;
-            width: 550px;
-            height: 65px;
-            font-family: Tahoma, Geneva, sans-serif;
-            font-size: 14px;
-            font-style: italic;
-            line-height: 24px;
-            font-weight: bold;
-            color: #09C;
-            text-decoration: none;
-            border-radius: 10px;
-            padding: 10px;
-            /*border: 1px solid #999;*/
-            border: inset 1px solid #333;
-            -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-            -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        #disclaimer {
-            text-align: center;
-        }
-
-        .links {
-            height: 160px;
-        }
-
-        .url {
-            width: 375px;
+        .theme-dropdown .dropdown-menu {
+            position: static;
             display: block;
-            border: 1px solid #999;
-            height: 25px;
-            -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-            -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
         }
 
-        .button {
-            width: 100px;
+        .theme-showcase > p > .btn {
+            margin: 5px 0;
+        }
+
+        .theme-showcase .navbar .container {
+            width: auto;
+        }
+
+        .tooltipped {
+            position: relative;
+        }
+
+        .tooltipped:after {
             position: absolute;
-            right: 20px;
-            bottom: 20px;
-            background: #09C;
+            z-index: 1000000;
+            display: none;
+            padding: 5px 8px;
+            font: normal normal 11px/1.5 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
             color: #fff;
-            font-family: Tahoma, Geneva, sans-serif;
-            height: 30px;
-            border-radius: 15px;
-            border: 1px solid #999;
+            text-align: center;
+            text-decoration: none;
+            text-shadow: none;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: break-word;
+            white-space: pre;
+            pointer-events: none;
+            content: attr(aria-label);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 3px;
+            -webkit-font-smoothing: subpixel-antialiased
         }
 
-        .button:hover {
-            background: #fff;
-            color: #09C;
+        .tooltipped:before {
+            position: absolute;
+            z-index: 1000001;
+            display: none;
+            width: 0;
+            height: 0;
+            color: rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            content: "";
+            border: 5px solid transparent
+        }
+
+        .tooltipped:hover:before, .tooltipped:hover:after, .tooltipped:active:before, .tooltipped:active:after, .tooltipped:focus:before, .tooltipped:focus:after {
+            display: inline-block;
+            text-decoration: none
+        }
+
+        .tooltipped-multiline:hover:after, .tooltipped-multiline:active:after, .tooltipped-multiline:focus:after {
+            display: table-cell
+        }
+
+        .tooltipped-s:after, .tooltipped-se:after, .tooltipped-sw:after {
+            top: 100%;
+            right: 50%;
+            margin-top: 5px
+        }
+
+        .tooltipped-s:before, .tooltipped-se:before, .tooltipped-sw:before {
+            top: auto;
+            right: 50%;
+            bottom: -5px;
+            margin-right: -5px;
+            border-bottom-color: rgba(0, 0, 0, 0.8)
         }
 
         .black_overlay {
@@ -146,52 +156,105 @@
         }
     </style>
 </head>
-<body>
-
-
+<body role="document">
 <div ng-controller="TinyController as tiny">
-    <form name="myForm" ng-submit="tiny.submit()">
-        <label><span>Url</span>
-            <input type="text"
-                   ng-model="tiny.url"
-                   name="url"
-                   class="url"
-                   required="required"
-                   ng-required="true"
-                   ng-pattern="/\b((?:[Hh][Tt][Tt][Pp][Ss]?)://[\w/#~:.?+=&%@!\-]+?)(?=[.:?\-]*(?:[^\w/#~:.?+=&%@!\-]|$))/"
-            >
-        </label>
-        <input class="button" type="submit" value="Submit"
-               ng-disabled="(myForm.url.$error.required && myForm.url.$dirty) || myForm.url.length==0"/>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Ivo2U</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="http://ivo2u.nl/Wg">Contact</a></li>
+                    <li><a href="#" ng-click="tiny.disclaimer = true">Disclaimer</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
 
-    </form>
-    <div class="box">
-        <label for="website">Result:</label><input class="url" type="text" id="website" value="{{tiny.data}}"/>
-        <button class="button" data-copytarget="#website">copy</button>
-        <a href="{{tiny.data}}" target="_blank">{{tiny.data}}</a>
+    <div class="container theme-showcase" role="main">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">URL 2 shorten</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form name="myForm" ng-submit="tiny.submit()" role="form">
+                            <div class="form-group">
+                                <input type="text"
+                                       ng-model="tiny.url"
+                                       name="url"
+                                       class="form-control"
+                                       required="required"
+                                       ng-required="true"
+                                       ng-pattern="/\b((?:[Hh][Tt][Tt][Pp][Ss]?)://[\w/#~:.?+=&%@!\-]+?)(?=[.:?\-]*(?:[^\w/#~:.?+=&%@!\-]|$))/"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit" value="Submit"
+                                       ng-disabled="(myForm.url.$error.required && myForm.url.$dirty) || myForm.url.length==0"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Result</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-show="tiny.data.length>0">
+                            <div class="form-group">
+                                <input id="copyUrl" value="{{tiny.data}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" ngclipboard ngclipboard-success="tiny.onSuccess(e);"
+                                        ngclipboard-error="tiny.onError(e);" data-clipboard-action="copy"
+                                        data-clipboard-target="#copyUrl">
+                                    Copy 2 Clipboard
+                                </button>
+                            </div>
+                        </div>
+                        <div ng-hide="tiny.data.length>0">
+                            Result will be shown here...
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Top 5</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-controller="Popular as top">
+                            <table>
+                                <tbody>
+                                <tr ng-repeat="token in top.data.tokens">
+                                    <td>
+                                        <a href="{{token.tinyUrl}}" target="_blank">{{token.destinationUrl |
+                                            max_url}}</a>
+                                    </td>
+                                    <td>{{token.counter}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="box links">
-    <div ng-controller="Popular as top">
-        <table>
-            <thead>
-            <tr>
-                <td>Top 5 popular links...</td>
-                <td>Counter</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="token in top.data.tokens">
-                <td><a href="{{token.tinyUrl}}" target="_blank">{{ token.destinationUrl | max_url }}</a></td>
-                <td>{{token.counter}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div ng-controller="Disclaimer as disclaimer" id="disclaimer">
-    <a href="javascript:void(0)"  ng-click="disclaimer.show = true">Disclaimer</a>
-    <div id="light" class="white_content"  ng-show="disclaimer.show">
+
+
+    <div id="light" class="white_content" ng-show="tiny.disclaimer">
         <p>Disclaimer:</p>
         <p>The information contained in this website is for general information purposes only. We make no
             representations or warranties of any kind, express or implied, about the completeness, accuracy,
@@ -222,17 +285,62 @@
             not
             agree to all of the following terms and conditions.</p>
 
-        <a href="javascript:void(0)" ng-click="disclaimer.show = false">Close</a>
+        <a href="javascript:void(0)" ng-click="tiny.disclaimer = false">Close</a>
     </div>
     <div id="fade" class="black_overlay" ng-show="disclaimer.show"></div>
 </div>
 
-
-
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
 <script type="text/javascript">
 
     (function () {
-        angular.module('Tiny', []);
+        'use strict';
+        var MODULE_NAME = 'ngclipboard';
+        var angular, Clipboard;
+
+        if (typeof module !== 'undefined' && typeof module.exports === 'object') {
+            angular = require('angular');
+            Clipboard = require('clipboard');
+            module.exports = MODULE_NAME;
+        } else {
+            angular = window.angular;
+            Clipboard = window.Clipboard;
+        }
+
+        angular.module(MODULE_NAME, []).directive('ngclipboard', function () {
+            return {
+                restrict: 'A',
+                scope: {
+                    ngclipboardSuccess: '&',
+                    ngclipboardError: '&'
+                },
+                link: function (scope, element) {
+                    var clipboard = new Clipboard(element[0]);
+
+                    clipboard.on('success', function (e) {
+                        scope.ngclipboardSuccess({
+                            e: e
+                        });
+                    });
+
+                    clipboard.on('error', function (e) {
+                        scope.ngclipboardError({
+                            e: e
+                        });
+                    });
+
+                }
+            };
+        });
+    }());
+
+    (function () {
+        angular.module('Tiny', ['ngclipboard']);
         angular.module('Tiny').controller("Popular", Popular);
 
         Popular.$inject = [
@@ -252,9 +360,20 @@
             });
         }
 
-        angular.module('Tiny').controller("TinyController", TinyController).filter('max_url', function () {
+        angular.module('Tiny').controller("TinyController", TinyController).filter('max_url', function ($window) {
             return function (str) {
-                var n = 50;
+                var n = 120;
+                if ($window.innerWidth <= 320) {
+                    n = 25;
+                } else if ($window.innerWidth <= 375) {
+                    n = 32;
+                } else if ($window.innerWidth <= 414) {
+                    n = 40;
+                } else if ($window.innerWidth <= 768) {
+                    n = 65;
+                } else if ($window.innerWidth <= 800) {
+                    n = 70;
+                }
                 return str.length > n ? str.substr(0, n - 1) + '...' : str;
             }
         });
@@ -265,7 +384,8 @@
         function TinyController($http) {
             var vm = this;
             vm.url = "";
-            vm.data = "http://ivo2u.nl";
+            vm.data = "";
+            vm.disclaimer = false;
             vm.submit = function () {
                 $http({
                     url: 'http://ivo2u.nl/api/',
@@ -278,46 +398,59 @@
                     vm.data = status;
                 });
             };
+
+            vm.onSuccess = function (e) {
+                e.clearSelection();
+
+                console.info('Action:', e.action);
+                console.info('Text:', e.text);
+                console.info('Trigger:', e.trigger);
+
+                showTooltip(e.trigger, 'Copied!');
+            };
+
+            vm.onError = function (e) {
+                console.error('Action:', e.action);
+                console.error('Trigger:', e.trigger);
+
+                showTooltip(e.trigger, fallbackMessage(e.action));
+            };
+
+            function showTooltip(elem, msg) {
+                elem.setAttribute('class', 'btn btn-primary tooltipped tooltipped-s');
+                elem.setAttribute('aria-label', msg);
+            }
+
+            function fallbackMessage(action) {
+                var actionMsg = '';
+                var actionKey = (action === 'cut' ? 'X' : 'C');
+
+                if (/iPhone|iPad/i.test(navigator.userAgent)) {
+                    actionMsg = 'No support :(';
+                }
+                else if (/Mac/i.test(navigator.userAgent)) {
+                    actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
+                }
+                else {
+                    actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
+                }
+
+                return actionMsg;
+            }
+
         }
-
-        angular.module('Tiny').controller("Disclaimer", Disclaimer);
-
-        function Disclaimer() {
-            var vm = this;
-            vm.show = false;
-        }
-
     })();
 
     (function () {
-        'use strict';
-        // click events
-        document.body.addEventListener('click', copy, true);
-        // event handler
-        function copy(e) {
-            // find target element
-            var t = e.target;
-            var c = t.dataset.copytarget;
-            var inp = (c ? document.querySelector(c) : null);
+        var btns = document.querySelectorAll('.btn');
 
-            // is element selectable?
-            if (inp && inp.select) {
-                inp.select();
-                try {
-                    document.execCommand('copy');
-                    inp.blur();
-
-                    // copied animation
-                    t.classList.add('copied');
-                    setTimeout(function () {
-                        t.classList.remove('copied');
-                    }, 1500);
-                }
-                catch (err) {
-                    alert('please press Ctrl/Cmd+C to copy');
-                }
-            }
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('mouseleave', function (e) {
+                e.currentTarget.setAttribute('class', 'btn btn-primary');
+                e.currentTarget.removeAttribute('aria-label');
+            });
         }
+
     })();
 </script>
 
