@@ -29,6 +29,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -127,6 +128,22 @@ public class TinyService {
     @Path("/api")
     @Produces(TEXT_PLAIN)
     public Response api(@FormParam("url") final String url) {
+        if (url.isEmpty() || isWrongUrl(url) || isUrlFromMyDomain(url)) {
+            return Response.ok("The request was wrong in some way... Please try again.")
+                           .build();
+        }
+
+        final URI uri = createUrl(url);
+
+        return Response.ok(uri.toString())
+                       .build();
+    }
+
+    @POST
+    @Path("/api")
+    @Produces(TEXT_PLAIN)
+    @Consumes(TEXT_PLAIN)
+    public Response post(final String url) {
         if (url.isEmpty() || isWrongUrl(url) || isUrlFromMyDomain(url)) {
             return Response.ok("The request was wrong in some way... Please try again.")
                            .build();
