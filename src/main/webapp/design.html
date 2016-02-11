@@ -124,7 +124,7 @@
                         <h3 class="panel-title">Result</h3>
                     </div>
                     <div class="panel-body">
-                        <div >
+                        <div>
                             <div class="form-group">
                                 <input id="copyUrl" value="{{tiny.data}}" class="form-control">
                             </div>
@@ -138,12 +138,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-default" ng-controller="Popular as top">
                     <div class="panel-heading">
                         <h3 class="panel-title">Top 5</h3>
                     </div>
                     <div class="panel-body">
-                        <div ng-controller="Popular as top">
+                        <div>
                             <table>
                                 <tbody>
                                 <tr ng-repeat="token in top.data.tokens">
@@ -217,7 +217,6 @@
                             e: e
                         });
                     });
-
                 }
             };
         });
@@ -244,24 +243,26 @@
             });
         }
 
-        angular.module('Tiny').controller("TinyController", TinyController).filter('max_url', function ($window) {
-            return function (str) {
-                var n = 120;
-                if ($window.innerWidth <= 320) {
-                    n = 25;
-                } else if ($window.innerWidth <= 375) {
-                    n = 32;
-                } else if ($window.innerWidth <= 414) {
-                    n = 40;
-                } else if ($window.innerWidth <= 768) {
-                    n = 65;
-                } else if ($window.innerWidth <= 800) {
-                    n = 70;
+        angular.module('Tiny').controller("TinyController", TinyController).filter('max_url', [
+            '$window',
+            function ($window) {
+                return function (str) {
+                    var n = 120;
+                    if ($window.innerWidth <= 320) {
+                        n = 25;
+                    } else if ($window.innerWidth <= 375) {
+                        n = 32;
+                    } else if ($window.innerWidth <= 414) {
+                        n = 40;
+                    } else if ($window.innerWidth <= 768) {
+                        n = 65;
+                    } else if ($window.innerWidth <= 800) {
+                        n = 70;
+                    }
+                    return str.length > n ? str.substr(0, n - 1) + '...' : str;
                 }
-                return str.length > n ? str.substr(0, n - 1) + '...' : str;
             }
-        });
-
+        ]);
         TinyController.$inject = [
             '$http'
         ];
