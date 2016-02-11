@@ -2,6 +2,8 @@
 <html data-ng-app="Tiny">
 <head>
     <title>Ivo2U.nl</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <style type="text/css">
         a:link {
             color: #4776cc;
@@ -160,7 +162,7 @@
             >
         </label>
         <input class="button" type="submit" value="Submit"
-               ng-disabled="myForm.url.$error.required && myForm.url.$dirty"/>
+               ng-disabled="(myForm.url.$error.required && myForm.url.$dirty) || myForm.url.length==0"/>
 
     </form>
     <div class="box">
@@ -226,7 +228,6 @@
 </div>
 
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 
 <script type="text/javascript">
 
@@ -253,7 +254,7 @@
 
         angular.module('Tiny').controller("TinyController", TinyController).filter('max_url', function () {
             return function (str) {
-                var n = 60;
+                var n = 50;
                 return str.length > n ? str.substr(0, n - 1) + '...' : str;
             }
         });
