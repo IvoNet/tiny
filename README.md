@@ -5,8 +5,8 @@ Tiny is a service for making external links be represented as a domain link.
 This site was a small exercise to create a tinyurl like service.
 It is actually much easier than I expected.
 
-Because it is an exercise I did not put much effort in creating
-
+I was really negligent in creating unit tests, so help is appreciated.
+Would someone help me with arquillian tests?
 
 ## Demo
 [Ivo2U.nl](http://ivo2u.nl)
