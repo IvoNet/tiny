@@ -52,5 +52,15 @@ If you want to set this service up for realzlike you might need something like t
 </VirtualHost>
 ```
 
+# Minimization
+
+Look [here](http://ivo2u.nl/Q) and see how I minimize index.html at this point.
+
 # Reading material
 If you want to know more about using a postgres database with glassfish please read [this](http://ivo2u.nl/WU).
+
+
+# Backlog / User Stories
+
+* As a User I WANT TO feel lucky IN ORDER TO see something new
+* As a Programmer I WANT TO test my code IN ORDER TO prove that it works before it goes into production
