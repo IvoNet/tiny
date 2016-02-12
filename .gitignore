@@ -84,5 +84,6 @@ Temporary Items
 .apdisk
 glassfish-pwd.txt
 tmp*
+deploy.sh
 
 artifact/
