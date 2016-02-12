@@ -256,28 +256,27 @@
                         </form>
                     </div>
                 </div>
-                <!--<div class="panel panel-default" ng-show="tiny.data.length>0">-->
-                <div class="panel panel-default" >
+                <div class="panel panel-default" ng-show="tiny.data.length>0">
                     <div class="panel-heading">
                         <h3 class="panel-title">Result</h3>
                     </div>
                     <div class="panel-body">
                         <div>
                             <div class="form-group">
-                                <input id="copyUrl" value="{{tiny.data}}" class="form-control">
+                                <input id="copyUrl" value="{{tiny.data}}" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" ngclipboard ngclipboard-success="tiny.onSuccess(e);"
                                         ngclipboard-error="tiny.onError(e);" data-clipboard-action="copy"
                                         data-clipboard-target="#copyUrl">
                                     Copy 2 Clipboard
-                                </button>
+                                </button>&nbsp;<a href="{{tiny.data}}" target="_blank" ng-hide="tiny.data.length==0">{{tiny.data}}</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="panel panel-default" ng-controller="Popular as top">
-                    <div class="panel-heading">
+                    <div class="panel-heading" ng-click="top.getPopular()">
                         <h3 class="panel-title">Top 5</h3>
                     </div>
                     <div class="panel-body">
@@ -370,15 +369,20 @@
 
         function Popular($http) {
             var vm = this;
-            $http({
-                url: 'http://ivo2u.nl/popular',
-                method: "GET",
-                headers: {'Accept': 'application/json'}
-            }).success(function (data, status, headers, config) {
-                vm.data = data;
-            }).error(function (data, status, headers, config) {
-                vm.data = status;
-            });
+
+            vm.getPopular = function() {
+                $http({
+                    url: 'http://ivo2u.nl/popular',
+                    method: "GET",
+                    headers: {'Accept': 'application/json'}
+                }).success(function (data, status, headers, config) {
+                    vm.data = data;
+                }).error(function (data, status, headers, config) {
+                    vm.data = status;
+                });
+            };
+
+            vm.getPopular();
         }
 
         angular.module('Tiny').controller("TinyController", TinyController).filter('max_url', [
