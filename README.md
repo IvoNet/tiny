@@ -53,4 +53,4 @@ If you want to set this service up for realzlike you might need something like t
 ```
 
 # Reading material
-If you want to know more about this step please read [this](http://ivo2u.nl/WU).
+If you want to know more about using a postgres database with glassfish please read [this](http://ivo2u.nl/WU).
