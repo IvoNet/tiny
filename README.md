@@ -62,5 +62,4 @@ If you want to know more about using a postgres database with glassfish please r
 
 # Backlog / User Stories
 
-* As a User I WANT TO feel lucky IN ORDER TO see something new
 * As a Programmer I WANT TO test my code IN ORDER TO prove that it works before it goes into production
