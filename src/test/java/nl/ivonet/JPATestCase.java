@@ -26,6 +26,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -42,31 +43,65 @@ public class JPATestCase {
     @Test
     public void testDummyInsert() throws Exception {
 
-         List<Tiny> tinies = this.em.createNamedQuery("Tiny.findByUrl", Tiny.class)
-                                       .setParameter("url", "http://ivonet.nl")
-                                       .getResultList();
+        List<Tiny> tinies = this.em.createNamedQuery("Tiny.findByUrl", Tiny.class)
+                                   .setParameter("url", "http://ivonet.nl")
+                                   .getResultList();
         if (tinies.isEmpty()) {
             final Tiny dummy = new Tiny();
-
             dummy.setUrl("http://ivonet.nl");
+            final Tiny dummy2 = new Tiny();
+            dummy2.setUrl("http://ivonet.it");
+            final Tiny dummy3 = new Tiny();
+            dummy3.setUrl("http://ivo2u.it");
             this.tx.begin();
             this.em.persist(dummy);
+            this.em.persist(dummy2);
+            this.em.persist(dummy3);
             this.tx.commit();
+
         }
 
         tinies = this.em.createNamedQuery("Tiny.findByUrl", Tiny.class)
-                                 .setParameter("url", "http://ivonet.nl")
-                                 .getResultList();
-        System.out.println("tiny = " + tinies.get(0).getId());
+                        .setParameter("url", "http://ivonet.nl")
+                        .getResultList();
+        System.out.println("tiny = " + tinies.get(0)
+                                             .getId());
 
         this.tx.begin();
-        Tiny tiny = this.em.createNamedQuery("Tiny.findById", Tiny.class).setParameter("id", 1).getSingleResult();
+
+        final Integer max = this.em.createNamedQuery("Tiny.maxId", Integer.class)
+                                   .getSingleResult();
+        System.out.println("max = " + max);
+
+        final Random random = new Random();
+        Tiny result = this.em.createNamedQuery("Tiny.lucky", Tiny.class)
+                             .setParameter("seed", random.nextInt(max))
+                             .setMaxResults(1)
+                             .getSingleResult();
+        System.out.println("result = " + result.getId());
+        result = this.em.createNamedQuery("Tiny.lucky", Tiny.class)
+                        .setParameter("seed", random.nextInt(max))
+                        .setMaxResults(1)
+                        .getSingleResult();
+        System.out.println("result = " + result.getId());
+        result = this.em.createNamedQuery("Tiny.lucky", Tiny.class)
+                        .setParameter("seed", random.nextInt(max))
+                        .setMaxResults(1)
+                        .getSingleResult();
+        System.out.println("result = " + result.getId());
+
+//        System.out.println("tiny.getId() = " + this.em.createNamedQuery("Tiny.lucky", Tiny.class)
+//                                         .getSingleResult().getId());
+//        System.out.println("tiny.getId() = " + this.em.createNamedQuery("Tiny.lucky", Tiny.class)
+//                                         .getSingleResult().getId());
+
+//        Tiny tiny = this.em.createNamedQuery("Tiny.findById", Tiny.class).setParameter("id", 1).getSingleResult();
         this.tx.commit();
 
-        this.tx.begin();
-        tiny = this.em.createNamedQuery("Tiny.findById", Tiny.class).setParameter("id", 1).getSingleResult();
-        this.em.createNamedQuery("Tiny.updateCounter").setParameter("id", 1).executeUpdate();
-        this.tx.commit();
+//        this.tx.begin();
+//        tiny = this.em.createNamedQuery("Tiny.findById", Tiny.class).setParameter("id", 1).getSingleResult();
+//        this.em.createNamedQuery("Tiny.updateCounter").setParameter("id", 1).executeUpdate();
+//        this.tx.commit();
 
 
     }

@@ -32,13 +32,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
 
+
+
 @Entity
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Tiny.findById", query = "SELECT t FROM Tiny t WHERE t.id = :id"),
         @NamedQuery(name = "Tiny.findByUrl", query = "SELECT t FROM Tiny t WHERE t.url = :url"),
         @NamedQuery(name = "Tiny.updateCounter", query = "UPDATE Tiny t SET t.counter = (t.counter + 1) WHERE t.id = :id"),
-        @NamedQuery(name = "Tiny.popular", query = "SELECT t FROM Tiny t ORDER BY t.counter DESC")
+        @NamedQuery(name = "Tiny.popular", query = "SELECT t FROM Tiny t ORDER BY t.counter DESC"),
+        @NamedQuery(name = "Tiny.maxId", query = "SELECT MAX(t.id) FROM Tiny t"),
+        @NamedQuery(name = "Tiny.lucky", query = "SELECT t FROM Tiny t WHERE t.id >= :seed")
 })
 @Table(name = "Tiny")
 public class Tiny {

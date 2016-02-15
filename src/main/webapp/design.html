@@ -23,6 +23,7 @@
         .theme-showcase .navbar .container {
             width: auto;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -187,7 +188,8 @@
             right: 100%
         }
 
-        @media screen and (min-width: 0\0) {
+        @media screen and (min-width: 0\0
+        ) {
             .tooltipped-multiline:after {
                 width: 250px
             }
@@ -270,7 +272,8 @@
                                         ngclipboard-error="tiny.onError(e);" data-clipboard-action="copy"
                                         data-clipboard-target="#copyUrl">
                                     Copy 2 Clipboard
-                                </button>&nbsp;<a href="{{tiny.data}}" target="_blank" ng-hide="tiny.data.length==0">{{tiny.data}}</a>
+                                </button>
+                                &nbsp;<a href="{{tiny.data}}" target="_blank" ng-hide="tiny.data.length==0">{{tiny.data}}</a>
                             </div>
                         </div>
                     </div>
@@ -285,10 +288,14 @@
                                 <tbody>
                                 <tr ng-repeat="token in top.data.tokens">
                                     <td>
-                                        <a href="{{token.tinyUrl}}" target="_blank">{{token.destinationUrl |
-                                            max_url}}</a>
+                                        <a href="{{token.tinyUrl}}" target="_blank">{{token.destinationUrl | max_url}}</a>
                                     </td>
                                     <td>{{token.counter}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://ivo2u.nl/lucky" class="btn btn-xs btn-default pull-right" target="_blank">I'm Feeling Lucky</a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -370,7 +377,7 @@
         function Popular($http) {
             var vm = this;
 
-            vm.getPopular = function() {
+            vm.getPopular = function () {
                 $http({
                     url: 'http://ivo2u.nl/popular',
                     method: "GET",
@@ -454,7 +461,7 @@
                     actionMsg = 'No support :(';
                 }
                 else if (/Mac/i.test(navigator.userAgent)) {
-                    actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
+                    actionMsg = 'Press Cmd-' + actionKey + ' to ' + action;
                 }
                 else {
                     actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
@@ -464,16 +471,6 @@
         }
     })();
 
-    (function () {
-        var btns = document.querySelectorAll('.btn');
-
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener('mouseleave', function (e) {
-                e.currentTarget.setAttribute('class', 'btn btn-primary');
-                e.currentTarget.removeAttribute('aria-label');
-            });
-        }
-    })();
 </script>
 
 </body>

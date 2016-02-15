@@ -46,6 +46,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -181,11 +182,32 @@ public class TinyService {
                                              .setMaxResults(5)
                                              .getResultList();
         final Tokens tokens = new Tokens();
-        resultList.stream().map(p -> new Token(makeUrl(p.getId()), p)).forEach(tokens::add);
+        resultList.stream()
+                  .map(p -> new Token(makeUrl(p.getId()), p))
+                  .forEach(tokens::add);
         return Response.ok(tokens)
                        .build();
-
     }
+
+    @GET
+    @Path("/lucky")
+    @Produces(APPLICATION_JSON)
+    public Response lucky() {
+        try {
+            final Integer max = this.em.createNamedQuery("Tiny.maxId", Integer.class)
+                                       .getSingleResult();
+            final Random random = new Random();
+            final Tiny tiny = this.em.createNamedQuery("Tiny.lucky", Tiny.class)
+                                     .setParameter("seed", random.nextInt(max))
+                                     .setMaxResults(1)
+                                     .getSingleResult();
+            return Response.temporaryRedirect(URI.create(tiny.getUrl()))
+                           .build();
+        } catch (final NoResultException e) {
+            throw new WebApplicationException(NOT_FOUND);
+        }
+    }
+
 
     private boolean isWrongUrl(final String url) {
         final String[] schemes = {"http", "https"};
