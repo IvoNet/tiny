@@ -17,6 +17,7 @@
 package nl.ivonet.service.service;
 
 
+import nl.ivonet.service.boundary.RandomSingleton;
 import nl.ivonet.service.boundary.TinyUrl;
 import nl.ivonet.service.model.Tiny;
 import nl.ivonet.service.model.Token;
@@ -46,7 +47,6 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Logger;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -196,9 +196,9 @@ public class TinyService {
         try {
             final Integer max = this.em.createNamedQuery("Tiny.maxId", Integer.class)
                                        .getSingleResult();
-            final Random random = new Random();
+            final RandomSingleton random = RandomSingleton.getInstance();
             final Tiny tiny = this.em.createNamedQuery("Tiny.lucky", Tiny.class)
-                                     .setParameter("seed", random.nextInt(max))
+                                     .setParameter("seed", random.random(max))
                                      .setMaxResults(1)
                                      .getSingleResult();
             return Response.temporaryRedirect(URI.create(tiny.getUrl()))
@@ -207,6 +207,7 @@ public class TinyService {
             throw new WebApplicationException(NOT_FOUND);
         }
     }
+
 
 
     private boolean isWrongUrl(final String url) {
