@@ -201,7 +201,7 @@ public class TinyService {
                                      .setParameter("seed", random.random(max))
                                      .setMaxResults(1)
                                      .getSingleResult();
-            return Response.temporaryRedirect(URI.create(tiny.getUrl()))
+            return Response.temporaryRedirect(URI.create(tiny.getUrl().replace(" ", "%20")))
                            .build();
         } catch (final NoResultException e) {
             throw new WebApplicationException(NOT_FOUND);
