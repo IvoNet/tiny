@@ -93,7 +93,7 @@ public class TinyService {
             this.em.createNamedQuery("Tiny.updateCounter")
                    .setParameter("id", tiny.getId())
                    .executeUpdate();
-            return Response.temporaryRedirect(URI.create(tiny.getUrl()))
+            return Response.temporaryRedirect(URI.create(tiny.getUrl().replace(" ", "%20")))
                            .build();
 
         } catch (final NoResultException e) {

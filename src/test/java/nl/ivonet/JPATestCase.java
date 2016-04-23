@@ -16,7 +16,6 @@
 
 package nl.ivonet;
 
-
 import nl.ivonet.service.model.Tiny;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -280,7 +280,9 @@
                 </div>
                 <div class="panel panel-default" ng-controller="Popular as top">
                     <div class="panel-heading" ng-click="top.getPopular()">
-                        <h3 class="panel-title">Top 5 <a href="http://ivo2u.nl/lucky" class="btn btn-xs btn-default pull-right" target="_blank">I'm Feeling Lucky</a></h3>
+                        <h3 class="panel-title">Top 5 <a href="http://ivo2u.nl/lucky"
+                                                         class="btn btn-xs btn-default pull-right" target="_blank">I'm
+                            Feeling Lucky</a></h3>
                     </div>
                     <div class="panel-body">
                         <div>
@@ -288,7 +290,8 @@
                                 <tbody>
                                 <tr ng-repeat="token in top.data.tokens">
                                     <td>
-                                        <a href="{{token.tinyUrl}}" target="_blank">{{token.destinationUrl | max_url}}</a>
+                                        <a href="{{token.tinyUrl}}" target="_blank">{{token.destinationUrl |
+                                            max_url}}</a>
                                     </td>
                                     <td>{{token.counter}}</td>
                                 </tr>
@@ -456,7 +459,7 @@
                     actionMsg = 'No support :(';
                 }
                 else if (/Mac/i.test(navigator.userAgent)) {
-                    actionMsg = 'Press Cmd-' + actionKey + ' to ' + action;
+                    actionMsg = 'Press cmd-' + actionKey + ' to ' + action;
                 }
                 else {
                     actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
